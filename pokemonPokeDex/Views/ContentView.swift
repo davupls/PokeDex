@@ -12,32 +12,23 @@ struct ContentView: View {
     @ObservedObject var viewModel = PokeDexVIEWModel()
     
     var body: some View {
-        NavigationStack {
-            List(viewModel.pokedexlist) { pokemon in
-                VStack(alignment: .leading){
-                    Image("00" + String())
-                    HStack{
-                        Text(String(pokemon.id))
-                            .font(.footnote)
-                        Text(pokemon.name["english"] ?? "")
-                            .font(.title2)
-                            .bold()
-                    }
-//                    HStack {
-//                        Text("Pokemon Type: \(pokemon.type[0])").font(.headline)
-//                    }
-//                    VStack {
-//                        Text("Health : \(pokemon.base["HP"] ?? 999)").foregroundColor(.green)
-//                        Text("Attack : \(pokemon.base["Attack"] ?? 999)").foregroundColor(.red)
-//                        Text("Defense: \(pokemon.base["Defense"] ?? 999)").foregroundColor(.yellow)
-//                    }
-                    
-                } .padding()
-                
-            } .navigationTitle("PokeDex")
-                
+        ScrollView {
+            ForEach(viewModel.pokedexlist) { pokemon in
+                VStack {
+                    Image("00" + String(pokemon.id))
+                    Text(pokemon.name["english"] ?? "")
+                        .font(.title2)
+                        .bold()
+                        .padding(.bottom)
+                    Text("00" + String(pokemon.id))
+                        .font(.footnote)
+                }
+                .frame(width: 220, height: 300)
+                .background(.blue)
+                .foregroundColor(.white)
+                .cornerRadius(20)
+            }
         }
-        .padding()
     }
 }
 
