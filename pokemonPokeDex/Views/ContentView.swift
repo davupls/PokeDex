@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             ForEach(viewModel.pokedexlist) { pokemon in
-                VStack {
+                LazyVStack {
                     
                     Image("00" + String(pokemon.id))
                     Text(pokemon.name["english"] ?? "")
