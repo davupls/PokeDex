@@ -15,6 +15,7 @@ struct ContentView: View {
         ScrollView {
             ForEach(viewModel.pokedexlist) { pokemon in
                 VStack {
+                    
                     Image("00" + String(pokemon.id))
                     Text(pokemon.name["english"] ?? "")
                         .font(.title2)
@@ -27,6 +28,7 @@ struct ContentView: View {
                 .background(.blue)
                 .foregroundColor(.white)
                 .cornerRadius(20)
+                
             }
         }
     }
