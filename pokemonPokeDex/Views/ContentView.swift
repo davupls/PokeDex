@@ -14,33 +14,49 @@ struct ContentView: View {
     private var twoColumnGrid = [GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
-        ScrollView {
-            Text("PokeDex")
-                .font(.largeTitle)
-                .bold()
-            LazyVGrid(columns: twoColumnGrid, spacing: 10) {
-                ForEach(viewModel.pokedexlist) { pokemon in
-                    
-                    VStack {
-                        Image("00" + String(pokemon.id))
-                        Text(pokemon.name["english"] ?? "")
-                            .font(.title2)
-                            .bold()
-                            .padding(.bottom)
-                        Text("00" + String(pokemon.id))
-                            .font(.footnote)
-                    }
-//                    .padding()
-                    
-                }
+        
+        VStack {
+            
+            VStack(alignment: .leading) {
+                Text("Pokédex")
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundColor(Color("TitleColor"))
                 
-                .frame(width: 180, height: 230)
-                .background(.blue)
-                .foregroundColor(.white)
-                .cornerRadius(20)
+                Text("Search for a Pokémon by name or using its National Pokédex number.")
+                    .foregroundColor(.gray)
             }
             
+            ScrollView {
+                LazyVGrid(columns: twoColumnGrid, spacing: 10) {
+                    
+                    ForEach(viewModel.pokedexlist) { pokemon in
+                        VStack {
+                            Image("00" + String(pokemon.id))
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 90)
+                            
+                            Text(pokemon.name["english"] ?? "")
+                                .font(.title2)
+                                .bold()
+                                .padding(.bottom, 3)
+                            
+                            Text("00" + String(pokemon.id))
+                                .font(.footnote)
+                            
+                        }
+                    }
+                    
+                    .frame(width: 160, height: 200)
+                    .background(.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(20)
+                }
+                
+            }
         }
+        .padding()
     }
     
 }
