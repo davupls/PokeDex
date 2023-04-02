@@ -26,7 +26,7 @@ struct ContentView: View {
                 Text("Search for a Pokémon by name or using its National Pokédex number.")
                     .foregroundColor(.gray)
             }
-            
+            .padding(.bottom)
             ScrollView {
                 LazyVGrid(columns: twoColumnGrid, spacing: 10) {
                     
