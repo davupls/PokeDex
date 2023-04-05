@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @ObservedObject var viewModel = PokeDexVIEWModel()
+    @EnvironmentObject var viewModel : PokeDexVIEWModel
     
     private var twoColumnGrid = [GridItem(.flexible()), GridItem(.flexible())]
     
@@ -27,43 +27,50 @@ struct ContentView: View {
                     .foregroundColor(.gray)
             }
             .padding(.bottom)
-            ScrollView {
-                LazyVGrid(columns: twoColumnGrid, spacing: 10) {
-                    
-                    ForEach(viewModel.pokedexlist) { pokemon in
-                        VStack {
-                            Image("00" + String(pokemon.id))
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 90)
-                            
-                            Text(pokemon.name["english"] ?? "")
-                                .font(.title2)
-                                .bold()
-                                .padding(.bottom, 3)
-                            
-                            Text("00" + String(pokemon.id))
-                                .font(.footnote)
-                            
+            
+            // MARK: Pokemon List
+            
+            NavigationStack {
+                ScrollView {
+                    LazyVGrid(columns: twoColumnGrid, spacing: 10) {
+                        
+                        ForEach(viewModel.pokedexlist) { pokemon in
+                            VStack {
+                                Image("00" + String(pokemon.id))
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 90)
+                                
+                                Text(pokemon.name["english"] ?? "")
+                                    .font(.title2)
+                                    .bold()
+                                    .padding(.bottom, 3)
+                                
+                                Text("00" + String(pokemon.id))
+                                    .font(.footnote)
+                                
+                            }
                         }
+                        
+                        .frame(width: 160, height: 200)
+                        .background(.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(20)
                     }
                     
-                    .frame(width: 160, height: 200)
-                    .background(.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(20)
                 }
-                
             }
         }
         .padding()
     }
     
 }
+    
 
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(PokeDexVIEWModel())
     }
 }
